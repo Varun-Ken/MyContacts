@@ -1,12 +1,17 @@
-const express = require("express")
-const dotenv = require("dotenv").config()
+const express = require("express");
+const router = require("./routes/contactRoutes");
+const errorHandler = require("./middleware/errorHandler");
+const dotenv = require("dotenv").config();
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 
-const app = express()
+const app = express();
 
-app.listen(PORT,()=>{
-    console.log(`Server running on ${PORT}`);
-})
+app.use(express.json())
 
+app.use("/api/contacts", router);
+app.use(errorHandler)
 
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
+});
